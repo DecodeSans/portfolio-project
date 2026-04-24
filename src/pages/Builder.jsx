@@ -1,3 +1,4 @@
+import React from "react";
 import { useContext } from "react";
 import { PortfolioContext } from "../context/PortfolioContext";
 import { useNavigate } from "react-router-dom";
@@ -42,6 +43,7 @@ export default function Builder() {
 
         <input
           placeholder="Skills (comma separated)"
+          value={data.skills.join(",")}
           onChange={(e) =>
             setData({ ...data, skills: e.target.value.split(",") })
           }

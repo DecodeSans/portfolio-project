@@ -1,6 +1,5 @@
 import React, { createContext } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
-
 // Create context
 export const PortfolioContext = createContext();
 
@@ -21,6 +20,7 @@ export const PortfolioProvider = ({ children }) => {
   return (
     <PortfolioContext.Provider value={{ data, setData }}>
       {children}
+  
     </PortfolioContext.Provider>
   );
 };
