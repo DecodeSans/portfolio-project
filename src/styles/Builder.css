@@ -1,0 +1,42 @@
+/* builder.css */
+.builder-container {
+  display: flex;
+}
+
+.form-area {
+  flex: 1;
+  padding: 30px;
+  background: white;
+  margin: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.project-card {
+  background: #fafafa;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #eee;
+  transition: 0.3s;
+}
+.project-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+.sidebar {
+  width: 220px;
+  background: #1e1e2f;
+  color: white;
+  padding: 20px;
+}
+@media (max-width: 768px) {
+  .builder-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+  }
+}
