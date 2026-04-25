@@ -40,6 +40,36 @@
   list-style: none;
 }
 
+/* SKILL BARS */
+.skill {
+  margin-bottom: 15px;
+}
+
+.skill span {
+  font-size: 14px;
+}
+
+.bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  width: 0;
+  border-radius: 10px;
+  animation: loadBar 1.5s ease forwards;
+}
+
+@keyframes loadBar {
+  from { width: 0; }
+}
+
 .skills li {
   background: rgba(59, 130, 246, 0.2);
   padding: 6px 10px;
@@ -97,6 +127,7 @@
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   cursor: pointer;
+  border: 1px solid rgba(59,130,246,0.3);
 }
 
 .project-card h4 {
@@ -109,9 +140,11 @@
 
 /* Hover effect (IMPORTANT 🔥) */
 .project-card:hover {
-  transform: translateY(-8px) scale(1.03);
-  background: rgba(59, 130, 246, 0.25);
-  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 
+    0 0 10px #3b82f6,
+    0 0 20px #3b82f6,
+    0 0 40px rgba(59,130,246,0.5);
 }
 
 /* Link */
@@ -173,4 +206,54 @@
 
 .fade-in {
   animation: fadeIn 1s ease;
+}
+/* SKILLS */
+.skill {
+  margin-bottom: 15px;
+}
+
+.skill p {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.skill-tag {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+  transition: 0.3s;
+  cursor: default;
+}
+
+.skill-tag:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 198, 255, 0.6);
+}
+
+
+/* Animated fill */
+.skill-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  border-radius: 10px;
+
+  /* animation */
+  width: 0;
+  animation: fillBar 1.5s ease forwards;
+
+  /* glow */
+  box-shadow: 0 0 10px #3b82f6;
+}
+
+@keyframes fillBar {
+  from { width: 0; }
 }

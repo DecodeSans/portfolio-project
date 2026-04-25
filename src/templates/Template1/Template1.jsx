@@ -13,23 +13,28 @@ export default function Template1({ data }) {
           {data.about || "Your short bio..."}
         </p>
 
-        {/* Skills */}
-        {data.skills && data.skills.length > 0 && (
-          <>
-            <h3>Skills</h3>
-            <ul className="skills">
-              {data.skills.map((skill, i) => (
-                <li key={i}>{skill}</li>
-              ))}
-            </ul>
-          </>
-        )}
+        {/* SKILLS */}
+{data.skills && data.skills.length > 0 && (
+  <section className="skills-section fade-up">
+    <h2>Skills</h2>
+
+    <div className="skills-list">
+      {data.skills.map((skill, i) => (
+        <span key={i} className="skill-tag">
+          {skill.name}
+        </span>
+      ))}
+    </div>
+
+  </section>
+)}
 
         {/* Contact */}
         {data.contact && (
           <>
             <h3>Contact</h3>
-            <p>{data.contact}</p>
+         <p>📞 {data.phone}</p>
+         <p>📧 {data.email}</p>
           </>
         )}
       </div>

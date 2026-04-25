@@ -8,7 +8,11 @@ export const PortfolioProvider = ({ children }) => {
   const [data, setData] = useLocalStorage("portfolioData",{
     name: "",
     about: "",
-    skills: [],
+    skills: [
+  { name: "React", level: 90 },
+  { name: "JavaScript", level: 80 },
+  { name: "CSS", level: 85 }
+],
     education: "",
     contact: "",
     template: "template1", // NEW
