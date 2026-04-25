@@ -1,5 +1,5 @@
 // components/common/TemplateSelector.jsx
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { PortfolioContext } from "../../context/PortfolioContext";
 import "./templateSelector.css";
 

@@ -1,3 +1,4 @@
+import React from "react";
 import "./template2.css";
 
 export default function Template2({ data }) {

@@ -1,3 +1,4 @@
+import React from "react";
 import { capitalize, formatSkills, truncate, formatLink } from "../../utils/helpers";
 import "./template1.css";
 
