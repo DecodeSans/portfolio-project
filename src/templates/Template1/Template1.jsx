@@ -1,34 +1,87 @@
 import React from "react";
-import { capitalize, formatSkills, truncate, formatLink } from "../../utils/helpers";
 import "./template1.css";
 
 export default function Template1({ data }) {
   return (
-    <div className="template">
+    <div className="portfolio">
 
-      <h1>{capitalize(data.name)}</h1>
-      <p>{truncate(data.about, 120)}</p>
+      {/* ================= SIDEBAR ================= */}
+      <div className="sidebar slide-left">
+        <h1 className="name">{data.name || "Your Name"}</h1>
 
-      <h2>Skills</h2>
-      <p>{formatSkills(data.skills)}</p>
+        <p className="bio">
+          {data.about || "Your short bio..."}
+        </p>
 
-      <h2>Projects</h2>
-      {data.projects.map((p, i) => (
-        <div key={i} className="card">
-          <h4>{capitalize(p.title)}</h4>
-          <p>{truncate(p.description, 100)}</p>
-          <a href={formatLink(p.link)} target="_blank" rel="noreferrer">
-            View
-          </a>
-        </div>
-      ))}
+        {/* Skills */}
+        {data.skills && data.skills.length > 0 && (
+          <>
+            <h3>Skills</h3>
+            <ul className="skills">
+              {data.skills.map((skill, i) => (
+                <li key={i}>{skill}</li>
+              ))}
+            </ul>
+          </>
+        )}
 
-      <h2>Education</h2>
-      <p>{data.education}</p>
+        {/* Contact */}
+        {data.contact && (
+          <>
+            <h3>Contact</h3>
+            <p>{data.contact}</p>
+          </>
+        )}
+      </div>
 
-      <h2>Contact</h2>
-      <p>{data.contact}</p>
+      {/* ================= MAIN CONTENT ================= */}
+      <div className="main fade-up">
 
+        {/* HERO / TITLE */}
+        <section className="hero fade-in">
+          <h2>Welcome 👋</h2>
+          <p>Here are my projects and work</p>
+        </section>
+
+        {/* PROJECTS */}
+        {data.projects &&
+          data.projects.length > 0 &&
+          data.projects[0].title && (
+            <section className="projects-section">
+              <h2>Projects</h2>
+
+              <div className="projects">
+                {data.projects.map((p, i) => (
+                  <div key={i} className="project-card card">
+                    <h4>{p.title}</h4>
+                    <p>{p.description}</p>
+
+                    {p.link && (
+                      <a
+                        href={p.link}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        View Project →
+                      </a>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+        {/* EDUCATION */}
+        {data.education && (
+          <section className="education-section fade-up">
+            <h2>Education</h2>
+            <div className="card">
+              <p>{data.education}</p>
+            </div>
+          </section>
+        )}
+
+      </div>
     </div>
   );
 }

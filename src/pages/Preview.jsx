@@ -1,5 +1,4 @@
-import React from "react";
-import { useContext } from "react";
+import React,{ useContext } from "react";
 import { PortfolioContext } from "../context/PortfolioContext";
 
 import Template1 from "../templates/Template1/Template1";
