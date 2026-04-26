@@ -20,16 +20,31 @@ export default function Template1({ data }) {
       </nav>
 
       {/* ================= HOME ================= */}
-      <section id="home" className="fade-up hero">
-       {data?.image && (
-    <img src={data.image} alt="profile" className="profile-img" />
-  )}
- 
-        <h1>{data?.name || "Your Name"}</h1>
-        <p className="about-text">{data?.about}</p>
-        
-      </section>
+      <section id="home" className="hero">
+  <div className="hero-container">
 
+    {/* LEFT - IMAGE */}
+    {data?.image && (
+      <div className="hero-image">
+        <img src={data.image} alt="profile" />
+      </div>
+    )}
+
+    {/* RIGHT - TEXT */}
+    <div className="hero-text">
+      <h3>Hello I'm</h3>
+
+      <h1>{data?.name || "Your Name"}</h1>
+
+      <h2>
+        And I'm a <span>{data?.role || "Your Role"}</span>
+      </h2>
+
+      <p>{data?.about}</p>
+    </div>
+
+  </div>
+</section>
     
 
       {/* ================= SKILLS ================= */}

@@ -35,6 +35,14 @@ useEffect(() => {
     updated[index].name = value;
     setData({ ...data, skills: updated });
   };
+  const removeSkill = (index) => {
+  const updated = data.skills.filter((_, i) => i !== index);
+
+  setData({
+    ...data,
+    skills: updated,
+  });
+};
 
   // Add project
   const addProject = () => {
@@ -94,6 +102,14 @@ useEffect(() => {
     Remove Image
   </button>
 )}
+{/* Role */}
+<input
+  type="text"
+  placeholder="Your Role"
+  value={data.role || ""}
+  onChange={(e) => handleChange("role", e.target.value)}
+/>
+
         {/* About */}
         <textarea
           placeholder="About You"
@@ -111,6 +127,9 @@ useEffect(() => {
               value={skill.name}
               onChange={(e) => updateSkill(i, e.target.value)}
             />
+             <button className="delete-btn" onClick={() => removeSkill(i)}>
+  ×
+</button>
           </div>
         ))}
         <button className="add-btn" onClick={addSkill}>

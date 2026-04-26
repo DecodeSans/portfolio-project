@@ -46,7 +46,7 @@
 }
 
 /* ===================== BUTTON ===================== */
-.form-area button {
+.form-area button:not(.delete-btn) {
   width: 100%;
   padding: 12px;
   background: #4f46e5;
@@ -66,6 +66,7 @@
 .dynamic-field {
   display: flex;
   gap: 10px;
+  align-items: center;
   margin-bottom: 10px;
 }
 
@@ -106,4 +107,24 @@
   .form-area {
     padding: 20px;
   }
+}
+.delete-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: #3b82f6;   /* blue color */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover effect */
+.delete-btn:hover {
+  background: #2563eb;   /* darker blue on hover */
 }
