@@ -1,42 +1,109 @@
-/* builder.css */
+/* ===================== MAIN CONTAINER ===================== */
 .builder-container {
+  width: 100%;
+  min-height: 100vh;
+  background: #f5f7fb;
   display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
 }
 
+/* ===================== FORM AREA ===================== */
 .form-area {
-  flex: 1;
-  padding: 30px;
+  width: 100%;
+  max-width: 600px;
   background: white;
-  margin: 20px;
+  padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-.project-card {
-  background: #fafafa;
-  padding: 15px;
-  border-radius: 10px;
+/* ===================== HEADINGS ===================== */
+.form-area h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* ===================== INPUTS ===================== */
+.form-area input,
+.form-area textarea {
+  width: 100%;
+  padding: 12px 14px;
   margin-bottom: 15px;
-  border: 1px solid #eee;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
   transition: 0.3s;
 }
+
+.form-area input:focus,
+.form-area textarea:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+}
+
+/* ===================== BUTTON ===================== */
+.form-area button {
+  width: 100%;
+  padding: 12px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form-area button:hover {
+  background: #4338ca;
+}
+
+/* ===================== SKILLS / PROJECT INPUT GROUP ===================== */
+.dynamic-field {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.dynamic-field input {
+  flex: 1;
+}
+
+.add-btn {
+  padding: 10px 14px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background: #059669;
+}
+
+/* ===================== CARD PREVIEW (OPTIONAL) ===================== */
+.preview-card {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  background: #fafafa;
+  border: 1px solid #eee;
+}
+
+/* ===================== HOVER EFFECT ===================== */
 .project-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
-.sidebar {
-  width: 220px;
-  background: #1e1e2f;
-  color: white;
-  padding: 20px;
-}
-@media (max-width: 768px) {
-  .builder-container {
-    flex-direction: column;
-  }
 
-  .sidebar {
-    width: 100%;
-    height: auto;
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+  .form-area {
+    padding: 20px;
   }
 }
