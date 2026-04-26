@@ -1,11 +1,33 @@
-
+import html2pdf from "html2pdf.js";
 import React,{useState} from "react";
 import "./template1.css";
 
 export default function Template1({ data }) {
   const [image,setImage] = useState(null);
+  const downloadPDF = () => {
+  console.log("CLICKED");   // 👈 VERY IMPORTANT
+
+  window.scrollTo(0, 0);
+
+  const element = document.getElementById("portfolio-preview");
+
+  if (!element) {
+    console.error("Element NOT found");
+    return;
+  }
+
+  const opt = {
+    margin: 0,
+    filename: "portfolio.pdf",
+    image: { type: "jpeg", quality: 1 },
+    html2canvas: { scale: 3 },
+    jsPDF: { unit: "px", format: [1200, 2000] }
+  };
+
+  html2pdf().set(opt).from(element).save();
+};
   return (
-    <div className="portfolio">
+       <div id="portfolio-preview" className="portfolio">
 
       {/* ================= NAVBAR ================= */}
       <nav className="navbar">
@@ -16,6 +38,12 @@ export default function Template1({ data }) {
           <li><a href="#skills">Skills</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#contact">Contact</a></li>
+           <li>
+             <button className="download-btn" onClick={downloadPDF}>
+             Download CV
+             </button>
+            </li>
+
         </ul>
       </nav>
 
@@ -110,7 +138,7 @@ export default function Template1({ data }) {
           <p>📧 {data.email}</p>
         </section>
       )}
-
+     
     </div>
   );
 }
