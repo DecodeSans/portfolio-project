@@ -1,7 +1,9 @@
-import React from "react";
+
+import React,{useState} from "react";
 import "./template1.css";
 
 export default function Template1({ data }) {
+  const [image,setImage] = useState(null);
   return (
     <div className="portfolio">
 
@@ -19,6 +21,10 @@ export default function Template1({ data }) {
 
       {/* ================= HOME ================= */}
       <section id="home" className="fade-up hero">
+       {data?.image && (
+    <img src={data.image} alt="profile" className="profile-img" />
+  )}
+ 
         <h1>{data?.name || "Your Name"}</h1>
         <p className="about-text">{data?.about}</p>
         

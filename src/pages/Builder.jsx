@@ -1,10 +1,20 @@
-import React,{ useContext } from "react";
+import React,{ useContext, useEffect } from "react";
 import { PortfolioContext } from "../context/PortfolioContext";
 import {useNavigate} from "react-router-dom";
 import "../styles/Builder.css";
 
 export default function Builder() {
   const { data, setData } = useContext(PortfolioContext);
+  useEffect(() => {
+  const savedData = localStorage.getItem("portfolioData");
+  if (savedData) {
+   setData(prev => ({ ...prev, ...JSON.parse(savedData) }));
+  }
+}, []);
+useEffect(() => {
+  localStorage.setItem("portfolioData", JSON.stringify(data));
+}, [data]);
+
   const navigate = useNavigate();
   // Handle input change
   const handleChange = (field, value) => {
@@ -19,7 +29,7 @@ export default function Builder() {
     });
   };
 
-  // Update skill
+  
   const updateSkill = (index, value) => {
     const updated = [...data.skills];
     updated[index].name = value;
@@ -56,7 +66,34 @@ export default function Builder() {
           value={data.name || ""}
           onChange={(e) => handleChange("name", e.target.value)}
         />
+        <input
+  type="file"
+  accept="image/*"
+  onChange={(e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
 
+      reader.onloadend = () => {
+        setData({
+          ...data,
+          image: reader.result   // ✅ permanent (base64)
+        });
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }}
+/>
+{data?.image && (
+  <button
+    onClick={() => {
+      setData({ ...data, image: null });
+    }}
+  >
+    Remove Image
+  </button>
+)}
         {/* About */}
         <textarea
           placeholder="About You"
