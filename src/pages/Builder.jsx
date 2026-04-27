@@ -61,6 +61,14 @@ useEffect(() => {
     updated[index][field] = value;
     setData({ ...data, projects: updated });
   };
+  const removeProject = (index) => {
+  const updated = data.projects.filter((_, i) => i !== index);
+
+  setData({
+    ...data,
+    projects: updated,
+  });
+};
 
   return (
     <div className="builder-container">
@@ -135,41 +143,92 @@ useEffect(() => {
         <button className="add-btn" onClick={addSkill}>
           + Add Skill
         </button>
+      <h3>Languages</h3>
 
-        {/* Projects */}
-        <h3>Projects</h3>
-        {(data.projects || []).map((proj, i) => (
-          <div key={i} className="preview-card">
-            <input
-              type="text"
-              placeholder="Project Title"
-              value={proj.title}
-              onChange={(e) =>
-                updateProject(i, "title", e.target.value)
-              }
-            />
-            
-            <textarea
-              placeholder="Description"
-              value={proj.description}
-              onChange={(e) =>
-                updateProject(i, "description", e.target.value)
-              }
-            />
-            <input
-              type="text"
-              placeholder="Project Link"
-              value={proj.link}
-              onChange={(e) =>
-                updateProject(i, "link", e.target.value)
-              }
-            />
-          </div>
-        ))}
-        <button className="add-btn" onClick={addProject}>
-          + Add Project
-        </button>
+{(data.languages || []).map((lang, index) => (
+  <div key={index}>
 
+    <input
+      type="text"
+      placeholder="Language"
+      value={lang.name}
+      onChange={(e) => {
+        const updated = [...data.languages];
+        updated[index].name = e.target.value;
+        setData({ ...data, languages: updated });
+      }}
+    />
+
+    {/* REMOVE BUTTON */}
+    <button
+      onClick={() => {
+        const updated = data.languages.filter((_, i) => i !== index);
+        setData({ ...data, languages: updated });
+      }}
+    >
+      Remove
+    </button>
+
+  </div>
+))}
+
+{/* ADD BUTTON */}
+<button
+  onClick={() =>
+    setData({
+      ...data,
+      languages: [...(data.languages || []), { name: "" }]
+    })
+  }
+>
+  + Add Language
+</button>
+       {/* Projects */}
+<h3>Projects</h3>
+
+{(data.projects || []).map((proj, i) => (
+  <div key={i} className="preview-card">
+
+    <input
+      type="text"
+      placeholder="Project Title"
+      value={proj.title}
+      onChange={(e) =>
+        updateProject(i, "title", e.target.value)
+      }
+    />
+
+    <textarea
+      placeholder="Description"
+      value={proj.description}
+      onChange={(e) =>
+        updateProject(i, "description", e.target.value)
+      }
+    />
+
+    <input
+      type="text"
+      placeholder="Project Link"
+      value={proj.link}
+      onChange={(e) =>
+        updateProject(i, "link", e.target.value)
+      }
+    />
+
+    {/* ✅ REMOVE BUTTON */}
+    <button
+      className="delete-btn"
+      onClick={() => removeProject(i)}
+    >
+      Remove
+    </button>
+
+  </div>
+))}
+
+<button className="add-btn" onClick={addProject}>
+  + Add Project
+</button>
         {/* Education */}
         <h3>Education</h3>
         <input
@@ -178,21 +237,90 @@ useEffect(() => {
           value={data.education || ""}
           onChange={(e) => handleChange("education", e.target.value)}
         />
+        <h3>Certifications</h3>
 
-        {/* Contact */}
-        <h3>Contact</h3>
-        <input
-          type="text"
-          placeholder="Phone"
-          value={data.phone || ""}
-          onChange={(e) => handleChange("phone", e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={data.email || ""}
-          onChange={(e) => handleChange("email", e.target.value)}
-        />
+{(data.certifications || []).map((cert, index) => (
+  <div key={index}>
+
+    <input
+      type="text"
+      placeholder="Certification Name"
+      value={cert.name}
+      onChange={(e) => {
+        const updated = [...data.certifications];
+        updated[index].name = e.target.value;
+        setData({ ...data, certifications: updated });
+      }}
+    />
+
+    <input
+      type="text"
+      placeholder="Organization"
+      value={cert.org}
+      onChange={(e) => {
+        const updated = [...data.certifications];
+        updated[index].org = e.target.value;
+        setData({ ...data, certifications: updated });
+      }}
+    />
+
+    <input
+      type="text"
+      placeholder="Year"
+      value={cert.year}
+      onChange={(e) => {
+        const updated = [...data.certifications];
+        updated[index].year = e.target.value;
+        setData({ ...data, certifications: updated });
+      }}
+    />
+
+    <button onClick={() => {
+      const updated = data.certifications.filter((_, i) => i !== index);
+      setData({ ...data, certifications: updated });
+    }}>
+      Remove
+    </button>
+
+  </div>
+))}
+
+<button onClick={() =>
+  setData({
+    ...data,
+    certifications: [
+      ...(data.certifications || []),
+      { name: "", org: "", year: "" }
+    ]
+  })
+}>
+  + Add Certification
+</button>
+<h3>Contact</h3>
+
+<input
+  type="text"
+  placeholder="Phone"
+  value={data.contact?.phone || ""}
+  onChange={(e) =>
+    setData({
+      ...data,
+      contact: { ...data.contact, phone: e.target.value }
+    })
+  }
+/>
+
+<input
+  type="email"
+  placeholder="Email"
+  value={data.contact?.email || ""}
+  onChange={(e) =>
+    setData({
+      ...data,
+      contact: { ...data.contact, email: e.target.value }
+    })
+  }
+/>
 
         {/* Template Buttons */}
         <h3>Select Template</h3>
