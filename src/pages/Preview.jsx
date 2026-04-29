@@ -8,10 +8,8 @@ const Preview = () => {
 
   useEffect(() => {
     const savedData = localStorage.getItem("portfolioData");
-
     if (savedData) {
       const parsedData = JSON.parse(savedData);
-      console.log("Loaded Data:", parsedData); // 🔍 debug
       setData(parsedData);
     }
   }, []);
@@ -24,7 +22,52 @@ const Preview = () => {
       return;
     }
 
-    html2pdf().from(element).save();
+    // ✅ Enable clean PDF mode
+    element.classList.add("pdf-mode");
+
+    setTimeout(() => {
+      const opt = {
+        margin: 0, // 🔥 MUST BE 0 (fixes blank page)
+        filename: `${data?.name || "CV"}.pdf`,
+
+        image: { type: "jpeg", quality: 1 },
+
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          scrollY: 0,
+        },
+
+        jsPDF: {
+          unit: "mm",
+          format: "a4",
+          orientation: "portrait",
+        },
+
+        // ✅ Controlled page break
+        pagebreak: {
+          mode: ["css"],
+        },
+      };
+
+      html2pdf()
+        .set(opt)
+        .from(element)
+        .toPdf()
+        .get("pdf")
+        .then((pdf) => {
+          // 🔥 REMOVE BLANK PAGE IF EXISTS
+          const totalPages = pdf.internal.getNumberOfPages();
+          if (totalPages > 1) {
+            pdf.deletePage(totalPages);
+          }
+        })
+        .save()
+        .then(() => {
+          element.classList.remove("pdf-mode");
+        });
+
+    }, 300);
   };
 
   if (!data) {
@@ -33,17 +76,39 @@ const Preview = () => {
 
   return (
     <div>
-      {/* Portfolio Preview */}
+      {/* ✅ Visible Portfolio */}
       <Template1 data={data} />
 
-      {/* Hidden CV Template */}
-      <div style={{ position: "absolute", top: "-9999px" }}>
+      {/* ✅ Hidden CV (stable rendering) */}
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "210mm",
+          visibility: "hidden", // 🔥 better than opacity
+          pointerEvents: "none",
+        }}
+      >
         <Template2 data={data} />
       </div>
 
-      {/* Download Button */}
+      {/* ✅ Download Button */}
       <div style={{ textAlign: "center", margin: "20px" }}>
-        <button onClick={downloadPDF}>Download CV</button>
+        <button
+          onClick={downloadPDF}
+          style={{
+            padding: "10px 20px",
+            fontSize: "16px",
+            cursor: "pointer",
+            backgroundColor: "#4CAF50",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+          }}
+        >
+          Download CV
+        </button>
       </div>
     </div>
   );

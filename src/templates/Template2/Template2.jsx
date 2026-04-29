@@ -2,120 +2,117 @@ import React from "react";
 import "./template2.css";
 
 export default function Template2({ data }) {
+
+  const safeArray = (value) => {
+    if (!value) return [];
+    if (Array.isArray(value)) return value;
+    return [value];
+  };
+
   if (!data) return <div>Loading...</div>;
+
+  const skillsList = safeArray(data?.skills);
+  const educationList = safeArray(data?.education);
+  const certList = safeArray(data?.certifications);
+  const langList = safeArray(data?.languages);
 
   return (
     <div id="cv-template" className="cv-container">
 
       {/* HEADER */}
       <div className="cv-header">
-        <div className="cv-image">
-          {data?.image && (
-            <img src={data.image} alt="profile" crossOrigin="anonymous" />
-          )}
-        </div>
-
-        <div className="cv-title">
+        <div>
           <h1>{data?.name}</h1>
           <h2>{data?.role}</h2>
         </div>
+
+        {data?.image && <img src={data.image} alt="profile" />}
       </div>
 
-      {/* BODY */}
-      <div className="cv-body">
+      <hr />
+
+      {/* TOP */}
+      <div className="cv-top">
+
+        {(data?.contact?.phone || data?.contact?.email || data?.contact?.address) && (
+          <div className="no-break">
+            <h3>CONTACT</h3>
+            {data?.contact?.phone && <p>📞 {data.contact.phone}</p>}
+            {data?.contact?.email && <p>✉️ {data.contact.email}</p>}
+            {data?.contact?.address && <p>📍 {data.contact.address}</p>}
+          </div>
+        )}
+
+        {data?.about && (
+          <div className="no-break">
+            <h3>SUMMARY</h3>
+            <p>{data.about}</p>
+          </div>
+        )}
+      </div>
+
+      <hr />
+
+      {/* MAIN */}
+      <div className="cv-main">
 
         {/* LEFT */}
-        <div className="cv-left">
+        <div className="left">
 
-          {/* CONTACT */}
-          {(data?.contact?.phone || data?.contact?.email || data?.contact?.address) && (
-            <>
-              <h3>CONTACT</h3>
-              {data.contact.phone && <p>{data.contact.phone}</p>}
-              {data.contact.address && <p>{data.contact.address}</p>}
-              {data.contact.email && <p>{data.contact.email}</p>}
-            </>
-          )}
-
-          {/* SKILLS */}
-          {data?.skills?.some(s => s.name) && (
-            <>
+          {skillsList.length > 0 && (
+            <div className="section no-break">
               <h3>SKILLS</h3>
               <ul>
-                {data.skills.map((skill, i) =>
-                  skill.name && <li key={i}>{skill.name}</li>
-                )}
+                {skillsList.map((s, i) => (
+                  <li key={i}>{s?.name || s}</li>
+                ))}
               </ul>
-            </>
+            </div>
           )}
 
-          {/* LANGUAGES */}
-          {data?.languages?.some(l => l.name) && (
-            <>
+          {educationList.length > 0 && (
+            <div className="section no-break">
+              <h3>EDUCATION</h3>
+              {educationList.map((edu, i) => (
+                <div key={i} className="timeline">
+                  <h4>{edu?.degree || edu}</h4>
+                  {edu?.institute && <p>{edu.institute}</p>}
+                  {edu?.duration && <span>{edu.duration}</span>}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* ✅ LANGUAGES MOVED HERE */}
+          {langList.length > 0 && (
+            <div className="section no-break">
               <h3>LANGUAGES</h3>
-              {data.languages.map((lang, i) =>
-                lang.name && <p key={i}>{lang.name}</p>
-              )}
-            </>
-          )}
-
-          {/* CERTIFICATIONS */}
-          {data?.certifications?.some(c => c.name) && (
-            <>
-              <h3>CERTIFICATIONS</h3>
-              <ul>
-                {data.certifications.map((cert, i) =>
-                  cert.name && (
-                    <li key={i}>
-                      {cert.name}
-                      {cert.org && ` | ${cert.org}`}
-                      {cert.year && ` (${cert.year})`}
-                    </li>
-                  )
-                )}
-              </ul>
-            </>
+              {langList.map((l, i) => (
+                <p key={i}>{l?.name || l}</p>
+              ))}
+            </div>
           )}
 
         </div>
 
         {/* RIGHT */}
-        <div className="cv-right">
+        <div className="right">
 
-          {/* PROFILE */}
-          {data?.about && (
-            <div className="section">
-              <h3>PERSONAL PROFILE</h3>
-              <p>{data.about}</p>
+          {certList.length > 0 && (
+            <div className="section no-break">
+              <h3>CERTIFICATIONS</h3>
+              {certList.map((c, i) => (
+                <div key={i} className="timeline">
+                  <h4>{c?.name || c}</h4>
+                  {c?.org && <p>{c.org}</p>}
+                  {c?.year && <span>{c.year}</span>}
+                </div>
+              ))}
             </div>
           )}
-
-          {/* EDUCATION */}
-          {(Array.isArray(data.education)
-            ? data.education.some(e => e.degree || e.institute)
-            : data.education) && (
-            <div className="section">
-              <h3>EDUCATION</h3>
-
-              {Array.isArray(data.education) ? (
-                data.education.map((edu, i) =>
-                  (edu.degree || edu.institute) && (
-                    <div key={i} className="item">
-                      <h4>{edu.degree}</h4>
-                      <p>{edu.institute}</p>
-                      <p>{edu.duration}</p>
-                    </div>
-                  )
-                )
-              ) : (
-                <p>{data.education}</p>
-              )}
-            </div>
-          )}
-
-          {/* ❌ EXPERIENCE REMOVED */}
 
         </div>
+
       </div>
     </div>
   );

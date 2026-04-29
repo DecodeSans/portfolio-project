@@ -1,78 +1,128 @@
 .cv-container {
   width: 210mm;
-  min-height: 297mm;
+  height: 297mm;
+  padding: 10mm; /* 🔥 slightly reduced to allow bigger text */
+  box-sizing: border-box;
   background: #fff;
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", sans-serif;
+  color: #333;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
 }
 
 /* HEADER */
 .cv-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  background: #8fc9c3;
-  padding: 20px;
 }
 
-.cv-image img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.cv-title {
-  margin-left: 30px;
-}
-
-.cv-title h1 {
+.cv-header h1 {
+  font-size: 30px;   /* 🔥 increased */
   margin: 0;
-  font-size: 32px;
-  letter-spacing: 2px;
 }
 
-.cv-title h2 {
-  margin: 5px 0 0;
-  font-weight: normal;
-  letter-spacing: 3px;
+.cv-header h2 {
+  font-size: 13px;   /* 🔥 increased */
+  color: gray;
 }
 
-/* BODY */
-.cv-body {
+.cv-header img {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+}
+
+/* TOP */
+.cv-top {
   display: flex;
+  justify-content: space-between;
+  gap: 12px;        /* 🔥 reduced to save space */
+  margin: 8px 0;
 }
 
-/* LEFT SIDE */
-.cv-left {
-  width: 30%;
-  background: #e6f2f1;
-  padding: 20px;
+.cv-top div {
+  width: 50%;
 }
 
-.cv-left h3 {
-  margin-top: 20px;
-  border-bottom: 1px solid #aaa;
-  padding-bottom: 5px;
+/* MAIN */
+.cv-main {
+  display: flex;
+  gap: 15px;
+  flex: 1;
 }
 
-.cv-left ul {
-  padding-left: 15px;
+/* COLUMNS */
+.left, .right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-/* RIGHT SIDE */
-.cv-right {
-  width: 70%;
-  padding: 20px;
+/* BALANCED SPACING */
+.left > *,
+.right > * {
+  margin-bottom: 8px;   /* 🔥 reduced spacing */
 }
 
-.section {
-  margin-bottom: 20px;
+/* TEXT */
+p {
+  font-size: 13px;      /* 🔥 increased */
+  margin: 1px 0;
+  line-height: 1.25;    /* 🔥 tighter */
 }
 
-.section h3 {
-  background: #e6f2f1;
-  padding: 5px 10px;
+/* HEADINGS */
+h3 {
+  font-size: 14px;      /* 🔥 increased */
+  margin-bottom: 4px;
 }
 
-.item {
-  margin-top: 10px;
+/* LIST */
+ul {
+  padding-left: 14px;
+  margin: 3px 0;
+}
+
+/* TIMELINE */
+.timeline {
+  border-left: 2px solid #ccc;
+  padding-left: 6px;
+  margin-bottom: 8px;
+  page-break-inside: avoid;
+}
+
+/* CERTIFICATION SPACING (BALANCED) */
+.right .timeline {
+  margin-bottom: 10px;   /* 🔥 clean spacing */
+}
+
+.timeline h4 {
+  font-size: 13px;
+  margin: 0;
+}
+
+.timeline span {
+  font-size: 11px;       /* 🔥 slightly bigger */
+  color: gray;
+}
+
+/* DIVIDER */
+hr {
+  margin: 6px 0;
+  border: 0.5px solid #ccc;
+}
+
+/* PDF FIX */
+#cv-template {
+  page-break-inside: avoid;
+}
+
+/* CLEAN MODE */
+.pdf-mode * {
+  background: white !important;
+  color: black !important;
+  box-shadow: none !important;
 }

@@ -28,7 +28,7 @@ export default function Template1({data }) {
           {/* LEFT IMAGE */}
           {data.image && (
             <div className="hero-image">
-              <img src={data.image} alt="profile" />
+              <img src={data.image} alt="profile" crossOrigin="anonymous" />
             </div>
           )}
 
