@@ -1,9 +1,9 @@
 import React from "react";
 import "./template1.css";
 
-export default function Template1({data }) {
+export default function Template1({ data, downloadPDF }) {
   if (!data) return <div>Loading...</div>;
-  
+
   return (
     <div id="portfolio-preview" className="portfolio">
 
@@ -13,34 +13,33 @@ export default function Template1({data }) {
 
         <ul className="nav-links">
           <li><a href="#home">Home</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#languages">Languages</a></li>
-          <li><a href="#education">Education</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
+          {data.skills?.length > 0 && <li><a href="#skills">Skills</a></li>}
+          {data.languages?.length > 0 && <li><a href="#languages">Languages</a></li>}
+          {data.education && <li><a href="#education">Education</a></li>}
+          {data.projects?.length > 0 && <li><a href="#projects">Projects</a></li>}
+          {data.certifications?.length > 0 && <li><a href="#certifications">Certifications</a></li>}
+          {(data.contact?.phone || data.contact?.email) && (
+            <li><a href="#contact">Contact</a></li>
+          )}
         </ul>
       </nav>
 
-      {/* ================= HOME ================= */}
+      {/* ================= HERO ================= */}
       <section id="home" className="hero">
         <div className="hero-container">
 
-          {/* LEFT IMAGE */}
           {data.image && (
             <div className="hero-image">
               <img src={data.image} alt="profile" crossOrigin="anonymous" />
             </div>
           )}
 
-          {/* RIGHT TEXT */}
           <div className="hero-text">
             <h3>Hello I'm</h3>
             <h1>{data.name || "Your Name"}</h1>
-
             <h2>
               And I'm a <span>{data.role || "Your Role"}</span>
             </h2>
-
             <p>{data.about || "Your description..."}</p>
           </div>
 
@@ -51,7 +50,6 @@ export default function Template1({data }) {
       {data.skills?.length > 0 && (
         <section id="skills" className="skills-section fade-up">
           <h2>Skills</h2>
-
           <div className="skills-list">
             {data.skills.map((skill, i) => (
               <span key={i} className="skill-tag">
@@ -66,26 +64,25 @@ export default function Template1({data }) {
       {data.languages?.length > 0 && (
         <section id="languages" className="fade-up">
           <h2>Languages</h2>
-
           {data.languages.map((lang, i) => (
             <p key={i}>• {lang.name}</p>
           ))}
         </section>
       )}
 
-      {/* ================= CERTIFICATIONS ================= */}
+      {/* ================= CERTIFICATIONS (ONLY THIS ADDED CLEANLY) ================= */}
       {data.certifications?.length > 0 && (
-        <section className="fade-up">
+        <section id="certifications" className="fade-up">
           <h2>Certifications</h2>
-
-          <ul>
+          <div className="card">
             {data.certifications.map((cert, i) => (
-              <li key={i}>
-                {cert.name} {cert.org && `| ${cert.org}`}{" "}
-                {cert.year && `(${cert.year})`}
-              </li>
+              <p key={i}>
+                <strong>{cert.name}</strong>
+                {cert.org && ` - ${cert.org}`}
+                {cert.year && ` (${cert.year})`}
+              </p>
             ))}
-          </ul>
+          </div>
         </section>
       )}
 
@@ -93,13 +90,11 @@ export default function Template1({data }) {
       {data.projects?.length > 0 && (
         <section id="projects" className="projects-section fade-up">
           <h2>Projects</h2>
-
           <div className="projects">
             {data.projects.map((p, i) => (
               <div key={i} className="project-card card">
                 <h4>{p.title}</h4>
-                <p>{p.description}</p>
-
+                {p.description && <p>{p.description}</p>}
                 {p.link && (
                   <a href={p.link} target="_blank" rel="noreferrer">
                     View Project →
@@ -115,7 +110,6 @@ export default function Template1({data }) {
       {data.education && (
         <section id="education" className="education-section fade-up">
           <h2>Education</h2>
-
           <div className="card">
             {Array.isArray(data.education) ? (
               data.education.map((edu, i) => (
@@ -130,16 +124,21 @@ export default function Template1({data }) {
         </section>
       )}
 
-     {/* ================= CONTACT ================= */}
-{(data.contact?.phone || data.contact?.email || data.contact?.address) && (
-  <section id="contact" className="fade-up">
-    <h2>Contact</h2>
+      {/* ================= CONTACT ================= */}
+      {(data.contact?.phone || data.contact?.email) && (
+        <section id="contact" className="fade-up">
+          <h2>Contact</h2>
+          {data.contact?.phone && <p>📞 {data.contact.phone}</p>}
+          {data.contact?.email && <p>📧 {data.contact.email}</p>}
+        </section>
+      )}
 
-    {data.contact?.phone && <p>📞 {data.contact.phone}</p>}
-    {data.contact?.email && <p>📧 {data.contact.email}</p>}
-    {data.contact?.address && <p>📍 {data.contact.address}</p>}
-  </section>
-)}
+      {/* ================= DOWNLOAD ================= */}
+      <div className="download-wrapper">
+        <button className="download-btn" onClick={downloadPDF}>
+          Download CV
+        </button>
+      </div>
 
     </div>
   );

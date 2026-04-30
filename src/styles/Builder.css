@@ -26,9 +26,16 @@
   color: #333;
 }
 
+.form-area h3 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
 /* ===================== INPUTS ===================== */
 .form-area input,
-.form-area textarea {
+.form-area textarea,
+.form-area select {
   width: 100%;
   padding: 12px 14px;
   margin-bottom: 15px;
@@ -37,32 +44,82 @@
   font-size: 14px;
   outline: none;
   transition: 0.3s;
+  box-sizing: border-box;
 }
 
 .form-area input:focus,
-.form-area textarea:focus {
+.form-area textarea:focus,
+.form-area select:focus {
   border-color: #4f46e5;
   box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
 }
 
-/* ===================== BUTTON ===================== */
-.form-area button:not(.delete-btn) {
-  width: 100%;
-  padding: 12px;
-  background: #4f46e5;
-  color: white;
+/* ===================== BUTTON BASE ===================== */
+.form-area button {
   border: none;
   border-radius: 8px;
-  font-size: 15px;
   cursor: pointer;
   transition: 0.3s;
 }
 
-.form-area button:hover {
+/* ===================== PRIMARY BUTTON (Preview, Add Section) ===================== */
+.primary-btn {
+  width: 100%;
+  padding: 12px;
+  background: #4f46e5;
+  color: white;
+  font-size: 15px;
+}
+
+.primary-btn:hover {
   background: #4338ca;
 }
 
-/* ===================== SKILLS / PROJECT INPUT GROUP ===================== */
+/* ===================== SMALL BUTTONS (Add / Remove) ===================== */
+.small-btn {
+  padding: 6px 12px;
+  background: #3b82f6;
+  color: white;
+  font-size: 13px;
+  border-radius: 6px;
+  width: auto;
+}
+
+.small-btn:hover {
+  background: #2563eb;
+}
+
+/* ===================== ADD BUTTON ===================== */
+.add-btn {
+  padding: 8px 14px;
+  background: #10b981;
+  color: white;
+  border-radius: 6px;
+  width: auto;
+}
+
+.add-btn:hover {
+  background: #059669;
+}
+
+/* ===================== DELETE BUTTON ===================== */
+.delete-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ef4444;
+  color: white;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* ===================== DYNAMIC FIELD LAYOUT ===================== */
 .dynamic-field {
   display: flex;
   gap: 10px;
@@ -74,20 +131,15 @@
   flex: 1;
 }
 
-.add-btn {
-  padding: 10px 14px;
-  background: #10b981;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+/* ===================== PROJECT BLOCK ===================== */
+.project-block {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 8px;
 }
 
-.add-btn:hover {
-  background: #059669;
-}
-
-/* ===================== CARD PREVIEW (OPTIONAL) ===================== */
+/* ===================== PREVIEW CARD ===================== */
 .preview-card {
   margin-top: 20px;
   padding: 15px;
@@ -96,35 +148,9 @@
   border: 1px solid #eee;
 }
 
-/* ===================== HOVER EFFECT ===================== */
-.project-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 768px) {
   .form-area {
     padding: 20px;
   }
-}
-.delete-btn {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: none;
-  background: #3b82f6;   /* blue color */
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Hover effect */
-.delete-btn:hover {
-  background: #2563eb;   /* darker blue on hover */
 }

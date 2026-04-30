@@ -26,7 +26,9 @@ export default function Template2({ data }) {
           <h2>{data?.role}</h2>
         </div>
 
-        {data?.image && <img src={data.image} alt="profile" />}
+        {data?.image && (
+          <img src={data.image} alt="profile" className="profile-img" />
+        )}
       </div>
 
       <hr />
@@ -35,7 +37,7 @@ export default function Template2({ data }) {
       <div className="cv-top">
 
         {(data?.contact?.phone || data?.contact?.email || data?.contact?.address) && (
-          <div className="no-break">
+          <div>
             <h3>CONTACT</h3>
             {data?.contact?.phone && <p>📞 {data.contact.phone}</p>}
             {data?.contact?.email && <p>✉️ {data.contact.email}</p>}
@@ -44,7 +46,7 @@ export default function Template2({ data }) {
         )}
 
         {data?.about && (
-          <div className="no-break">
+          <div>
             <h3>SUMMARY</h3>
             <p>{data.about}</p>
           </div>
@@ -53,14 +55,14 @@ export default function Template2({ data }) {
 
       <hr />
 
-      {/* MAIN */}
+      {/* MAIN 2 COLUMN */}
       <div className="cv-main">
 
-        {/* LEFT */}
+        {/* LEFT SIDEBAR */}
         <div className="left">
 
           {skillsList.length > 0 && (
-            <div className="section no-break">
+            <div className="section">
               <h3>SKILLS</h3>
               <ul>
                 {skillsList.map((s, i) => (
@@ -71,7 +73,7 @@ export default function Template2({ data }) {
           )}
 
           {educationList.length > 0 && (
-            <div className="section no-break">
+            <div className="section">
               <h3>EDUCATION</h3>
               {educationList.map((edu, i) => (
                 <div key={i} className="timeline">
@@ -83,29 +85,45 @@ export default function Template2({ data }) {
             </div>
           )}
 
-          {/* ✅ LANGUAGES MOVED HERE */}
           {langList.length > 0 && (
-            <div className="section no-break">
+            <div className="section">
               <h3>LANGUAGES</h3>
-              {langList.map((l, i) => (
-                <p key={i}>{l?.name || l}</p>
-              ))}
+              <ul>
+                {langList.map((l, i) => (
+                  <li key={i}>{l?.name || l}</li>
+                ))}
+              </ul>
             </div>
           )}
 
         </div>
 
-        {/* RIGHT */}
+        {/* RIGHT MAIN CONTENT */}
         <div className="right">
 
           {certList.length > 0 && (
-            <div className="section no-break">
+            <div className="section">
               <h3>CERTIFICATIONS</h3>
               {certList.map((c, i) => (
                 <div key={i} className="timeline">
                   <h4>{c?.name || c}</h4>
                   {c?.org && <p>{c.org}</p>}
                   {c?.year && <span>{c.year}</span>}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* ✅ FIX: PROJECTS MOVED INSIDE RIGHT */}
+          {data.projects?.length > 0 && (
+            <div className="section">
+              <h3>PROJECTS</h3>
+
+              {data.projects.map((p, i) => (
+                <div key={i} className="timeline">
+                  <h4>{p.title}</h4>
+                  {p.description && <p>{p.description}</p>}
+                  {p.link && <span>{p.link}</span>}
                 </div>
               ))}
             </div>
