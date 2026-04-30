@@ -144,7 +144,7 @@ export default function Builder() {
           onChange={(e) => handleTemplateChange(e.target.value)}
         >
           <option value="template1">🎓 Student Portfolio</option>
-          <option value="template3">💼 Business Portfolio</option>
+          <option value="template3">💼 Job Portfolio</option>
         </select>
 
         {/* BASIC */}
