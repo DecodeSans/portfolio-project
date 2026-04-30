@@ -7,7 +7,7 @@ export default function Builder() {
   const { data, setData } = useContext(PortfolioContext);
   const navigate = useNavigate();
 
-  // ===== SAFE DEFAULT (FIXED) =====
+  // ===== SAFE DEFAULT =====
   const safeData = {
     name: "",
     role: "",
@@ -19,21 +19,24 @@ export default function Builder() {
     languages: [],
     experience: [],
     awards: [],
+    interests: [],
+    achievements: [],
     contact: { phone: "", email: "" },
     image: null,
     template: "template1",
     ...data,
 
-    // 🔥 FORCE SAFE ARRAYS
     skills: data?.skills || [],
     projects: data?.projects || [],
     certifications: data?.certifications || [],
     languages: data?.languages || [],
     experience: data?.experience || [],
     awards: data?.awards || [],
+    interests: data?.interests || [],
+    achievements: data?.achievements || [],
   };
 
-  // ===== LOAD DATA =====
+  // ===== LOAD =====
   useEffect(() => {
     const saved = localStorage.getItem("portfolioData");
     if (saved) {
@@ -44,12 +47,12 @@ export default function Builder() {
     }
   }, [setData]);
 
-  // ===== SAVE DATA =====
+  // ===== SAVE =====
   useEffect(() => {
     localStorage.setItem("portfolioData", JSON.stringify(data));
   }, [data]);
 
-  // ===== BASIC CHANGE =====
+  // ===== CHANGE =====
   const handleChange = (field, value) => {
     setData((prev) => ({ ...prev, [field]: value }));
   };
@@ -106,6 +109,25 @@ export default function Builder() {
         image: null,
       });
     }
+
+    if (value === "template5") {
+      setData({
+        template: "template5",
+        name: "",
+        role: "",
+        about: "",
+        skills: [],
+        projects: [],
+        education: "",
+        certifications: [],
+        languages: [],
+        experience: [],
+        interests: [],
+        achievements: [],
+        contact: { phone: "", email: "" },
+        image: null,
+      });
+    }
   };
 
   // ===== HELPERS =====
@@ -145,6 +167,7 @@ export default function Builder() {
         >
           <option value="template1">🎓 Student Portfolio</option>
           <option value="template3">💼 Job Portfolio</option>
+          <option value="template5">🎨 Creative Portfolio</option>
         </select>
 
         {/* BASIC */}
@@ -241,7 +264,7 @@ export default function Builder() {
           onChange={(e) => handleChange("education", e.target.value)}
         />
 
-        {/* CERTIFICATIONS (BOTH) */}
+        {/* CERTIFICATIONS */}
         <h3>Certifications</h3>
         {safeData.certifications.map((c, i) => (
           <div key={i}>
@@ -273,7 +296,7 @@ export default function Builder() {
           + Add Certification
         </button>
 
-        {/* LANGUAGES (BOTH) */}
+        {/* LANGUAGES */}
         <h3>Languages</h3>
         {safeData.languages.map((l, i) => (
           <div key={i}>
@@ -291,8 +314,8 @@ export default function Builder() {
           + Add Language
         </button>
 
-        {/* BUSINESS ONLY */}
-        {safeData.template === "template3" && (
+        {/* EXPERIENCE (JOB + CREATIVE) */}
+        {(safeData.template === "template3" || safeData.template === "template5") && (
           <>
             <h3>Experience</h3>
             {safeData.experience.map((e, i) => (
@@ -310,7 +333,12 @@ export default function Builder() {
             <button onClick={() => addItem("experience", { role: "" })}>
               + Add Experience
             </button>
+          </>
+        )}
 
+        {/* AWARDS (JOB ONLY) */}
+        {safeData.template === "template3" && (
+          <>
             <h3>Awards</h3>
             {safeData.awards.map((a, i) => (
               <div key={i}>
@@ -326,6 +354,45 @@ export default function Builder() {
             ))}
             <button onClick={() => addItem("awards", { title: "" })}>
               + Add Award
+            </button>
+          </>
+        )}
+
+        {/* CREATIVE ONLY */}
+        {safeData.template === "template5" && (
+          <>
+            <h3>Interests</h3>
+            {safeData.interests.map((i, index) => (
+              <div key={index}>
+                <input
+                  placeholder="Interest"
+                  value={i.name || ""}
+                  onChange={(e) =>
+                    updateItem("interests", index, "name", e.target.value)
+                  }
+                />
+                <button onClick={() => removeItem("interests", index)}>×</button>
+              </div>
+            ))}
+            <button onClick={() => addItem("interests", { name: "" })}>
+              + Add Interest
+            </button>
+
+            <h3>Achievements</h3>
+            {safeData.achievements.map((a, i) => (
+              <div key={i}>
+                <input
+                  placeholder="Achievement"
+                  value={a.title || ""}
+                  onChange={(e) =>
+                    updateItem("achievements", i, "title", e.target.value)
+                  }
+                />
+                <button onClick={() => removeItem("achievements", i)}>×</button>
+              </div>
+            ))}
+            <button onClick={() => addItem("achievements", { title: "" })}>
+              + Add Achievement
             </button>
           </>
         )}
@@ -353,7 +420,6 @@ export default function Builder() {
           }
         />
 
-        {/* PREVIEW */}
         <button onClick={() => navigate("/preview")}>
           Preview
         </button>

@@ -3,6 +3,11 @@ import Template1 from "../templates/Template1/Template1";
 import Template2 from "../templates/Template2/Template2";
 import Template3 from "../templates/Template3/Template3";
 import Template4 from "../templates/Template4/Template4";
+
+/* ✅ NEW */
+import Template5 from "../templates/Template5/Template5";
+import Template6 from "../templates/Template6/Template6";
+
 import html2pdf from "html2pdf.js";
 
 const Preview = () => {
@@ -62,7 +67,9 @@ const Preview = () => {
     <div>
 
       {/* ================= UI ================= */}
-      {data.template === "template3" ? (
+      {data.template === "template5" ? (
+        <Template5 data={data} downloadPDF={downloadPDF} />
+      ) : data.template === "template3" ? (
         <Template3 data={data} downloadPDF={downloadPDF} />
       ) : (
         <Template1 data={data} downloadPDF={downloadPDF} />
@@ -79,7 +86,9 @@ const Preview = () => {
           pointerEvents: "none",
         }}
       >
-        {data.template === "template3" ? (
+        {data.template === "template5" ? (
+          <Template6 data={data} />
+        ) : data.template === "template3" ? (
           <Template4 data={data} />
         ) : (
           <Template2 data={data} />
