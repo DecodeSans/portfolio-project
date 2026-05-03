@@ -47,10 +47,27 @@ export default function Builder() {
     }
   }, [setData]);
 
-  // ===== SAVE =====
+  // ===== SAVE LOCAL =====
   useEffect(() => {
     localStorage.setItem("portfolioData", JSON.stringify(data));
   }, [data]);
+
+  // ===== 🔥 BACKEND SAVE (NEW) =====
+  const saveToBackend = async () => {
+    try {
+      await fetch("http://localhost:5000/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      console.log("✅ Saved to MongoDB");
+    } catch (err) {
+      console.error("❌ Backend save error:", err);
+    }
+  };
 
   // ===== CHANGE =====
   const handleChange = (field, value) => {
@@ -314,7 +331,7 @@ export default function Builder() {
           + Add Language
         </button>
 
-        {/* EXPERIENCE (JOB + CREATIVE) */}
+        {/* EXPERIENCE */}
         {(safeData.template === "template3" || safeData.template === "template5") && (
           <>
             <h3>Experience</h3>
@@ -336,7 +353,7 @@ export default function Builder() {
           </>
         )}
 
-        {/* AWARDS (JOB ONLY) */}
+        {/* AWARDS */}
         {safeData.template === "template3" && (
           <>
             <h3>Awards</h3>
@@ -358,7 +375,7 @@ export default function Builder() {
           </>
         )}
 
-        {/* CREATIVE ONLY */}
+        {/* CREATIVE */}
         {safeData.template === "template5" && (
           <>
             <h3>Interests</h3>
@@ -420,7 +437,13 @@ export default function Builder() {
           }
         />
 
-        <button onClick={() => navigate("/preview")}>
+        {/* 🔥 ONLY CHANGE HERE */}
+        <button
+          onClick={() => {
+            saveToBackend();   // backend save
+            navigate("/preview");
+          }}
+        >
           Preview
         </button>
 

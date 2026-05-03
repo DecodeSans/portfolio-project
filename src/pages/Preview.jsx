@@ -13,9 +13,22 @@ import html2pdf from "html2pdf.js";
 const Preview = () => {
   const [data, setData] = useState(null);
 
+  // ===== LOAD (backend + fallback) =====
   useEffect(() => {
-    const saved = localStorage.getItem("portfolioData");
-    if (saved) setData(JSON.parse(saved));
+    fetch("http://localhost:5000/get")
+      .then((res) => res.json())
+      .then((dbData) => {
+        if (dbData && dbData._id) {
+          setData(dbData);
+        } else {
+          const saved = localStorage.getItem("portfolioData");
+          if (saved) setData(JSON.parse(saved));
+        }
+      })
+      .catch(() => {
+        const saved = localStorage.getItem("portfolioData");
+        if (saved) setData(JSON.parse(saved));
+      });
   }, []);
 
   const downloadPDF = () => {
